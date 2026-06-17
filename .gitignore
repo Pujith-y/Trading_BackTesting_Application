@@ -1,0 +1,95 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Python Packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Database Files
+*.db
+*.sqlite3
+
+# Alembic
+alembic/versions/*.pyc
+
+# Redis
+dump.rdb
+
+# Uploaded Files
+uploads/
+data/uploads/
+
+# Historical Market Data
+data/candles/
+data/market_data/
+*.csv
+*.parquet
+
+# Backtest Results
+results/
+reports/
+exports/
+
+# Test Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Node (Frontend)
+node_modules/
+frontend/node_modules/
+
+# React Build
+frontend/build/
+frontend/dist/
+
+# Cache
+.cache/
+.mypy_cache/
+
+# Secrets
+secrets.json
+credentials.json
+
+# RQ Worker Files
+rqworker.pid
+
+# Redis Queue Artifacts
+redis_data/
+
+# Runtime Files
+*.pid
+*.sock

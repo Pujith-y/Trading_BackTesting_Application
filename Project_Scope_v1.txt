@@ -1,0 +1,19 @@
+1) Target users ?
+a) new retail traders and intermediate retail traders
+
+2) Supported markets ?
+a) Indian and forex and crypto
+
+3) supported strategies ?
+a) For starting small ones like esa , ma , sma next more complex fibinoci and clustering of       multiple strategies .
+
+4) Core features ?
+a) i) able to define a strategy with give constraints
+ii) able backtest this strategy and show every entry and exit using a visual candle chart which can vary for different company or different index charts and different time candles. with each entry and exit containing explanation for entry and exit for your strategy.
+iii) get the analytics of the back test 
+
+5)MVP limitations ?
+
+i) if possible feed analytics data to ai to get suggestions on the strategy.
+ii) integrate paper trading simulator
+iii) community, competions, ranks, medels and more.

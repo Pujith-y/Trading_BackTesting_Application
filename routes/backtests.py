@@ -21,15 +21,15 @@ def get_backtests(
     backtests = db.query(Backtest).filter(curr_user.id == Backtest.user_id).all()
 
     if market:
-        backtests = backtests.filter(Backtest.market == market).all()
+        backtests = backtests.filter(Backtest.market == market)
 
     if symbol:
-        backtests = backtests.filter(Backtest.symbol == symbol).all()
+        backtests = backtests.filter(Backtest.symbol == symbol)
 
     if strategy_name:
-        backtests = backtests.filter(Backtest.strategy_name == strategy_name).all()
+        backtests = backtests.filter(Backtest.strategy_name == strategy_name)
 
-    return backtests
+    return backtests.all()
 
 @router.post("/backtest/{id}")
 def create_a_backtest(

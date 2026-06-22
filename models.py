@@ -46,8 +46,8 @@ class Backtest(Base):
     user = relationship("User", back_populates="backtests")
     strategy = relationship("Strategy", back_populates="backtests")
     trades = relationship("Trade", back_populates="backtest", cascade="all, delete-orphan")
-    
-    
+    analytics = relationship("Analytics", back_populates="backtest", cascade="all, delete-orphan")
+
 class Trade(Base):
     __tablename__ = "trades"
 
@@ -61,3 +61,20 @@ class Trade(Base):
     backtest_id = Column(Integer, ForeignKey("backtests.id"))
 
     backtest = relationship("Backtest", back_populates="trades")
+
+class Analytics(Base):
+    __tablename__ = "analytics"
+
+    id = Column(Integer, primary_key=True, index=True)
+    backtest_id = Column(Integer, ForeignKey("backtests.id"))
+    total_trades = Column(Integer, nullable=False)
+    winning_trades = Column(Integer, nullable=False)
+    losing_trades = Column(Integer, nullable=False)
+    win_rate = Column(Integer, nullable=False)
+    net_profit = Column(Integer, nullable=False)
+    average_profit = Column(Integer, nullable=False)
+    longest_win = Column(Integer, nullable=False)
+    longest_loss = Column(Integer, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    backtest = relationship("Backtest", back_populates="analytics")

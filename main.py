@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database import Base,engine
-from routes import auth,startegies,backtests,marketdata,trades
+from routes import auth,startegies,backtests,marketdata,trades,analytics
 
 app = FastAPI(root_path="/api/v1")
 
@@ -11,6 +11,7 @@ app.include_router(startegies.router)
 app.include_router(backtests.router)
 app.include_router(marketdata.router)
 app.include_router(trades.router)
+app.include_router(analytics.router)
 
 @app.get("/")
 def root():

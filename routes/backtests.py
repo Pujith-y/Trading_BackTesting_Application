@@ -18,7 +18,7 @@ def get_backtests(
     db : Session = Depends(get_db),
     curr_user : User = Depends(get_current_user)):
 
-    backtests = db.query(Backtest).filter(curr_user.id == Backtest.user_id).all()
+    backtests = db.query(Backtest).filter(curr_user.id == Backtest.user_id)
 
     if market:
         backtests = backtests.filter(Backtest.market == market)

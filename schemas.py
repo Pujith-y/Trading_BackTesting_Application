@@ -26,6 +26,7 @@ class Change_Strategy(BaseModel):
 class New_Backtest(BaseModel):
     market : str
     symbol : str
-    timeframe : int
+    timeframe : str
+    period : str
     
 

@@ -25,6 +25,6 @@ def calculate_ema(symbol: str, timeframe: str, period: int, candlePeriod: str):
 
     return ema
 
-ema_values = calculate_ema("BTC-USD", "1h", 10, "5d")
+#ema_values = calculate_ema("BTC-USD", "1h", 10 , "5d")
 
-print(ema_values)
+#print(ema_values)

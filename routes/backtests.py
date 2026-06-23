@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from database import get_db
-from models import Backtest,User,Strategy
+from models import Backtest, Trade,User,Strategy
 from services.security.token_creation import get_current_user
 from services.queue.backtestqueue import backtest_queue
 from schemas import New_Backtest
 from services.backtestworker.worker import run_backtest
+from routes.marketdata import get_market_data
 
 router = APIRouter(tags=["Backtests"])
 
@@ -45,6 +46,7 @@ def create_a_backtest(
         market = body.market, 
         symbol = body.symbol, 
         timeframe = body.timeframe, 
+        period = body.period,
         strategy_id = id, 
         strategy_name = strategy.name,
         user_id = curr_user.id
@@ -54,3 +56,15 @@ def create_a_backtest(
     db.refresh(new_backtest)
     backtest_queue.enqueue(run_backtest, new_backtest.id)
     return new_backtest
+
+@router.get("/backtest/{id}/charts-data")
+def get_charts_data_for_backtests(id : int, db : Session = Depends(get_db), curr_user : User = Depends(get_current_user)):
+    backtest = db.query(Backtest).filter(Backtest.id == id and Backtest.user_id == curr_user.id).first()
+    if not backtest:
+        return {"error": "Backtest not found"}
+    
+    if backtest.status != "completed":
+        return {"error": f"Backtest is not completed yet. Current status: {backtest.status}"}
+    candles = get_market_data(backtest.symbol, backtest.timeframe, backtest.period)
+    trades = db.query(Trade).filter(Trade.backtest_id == backtest.id).all()
+    return {"candles": candles, "trades": trades}

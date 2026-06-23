@@ -42,6 +42,7 @@ class Backtest(Base):
     strategy_id = Column(Integer, ForeignKey("strategies.id"))
     strategy_name = Column(String(100), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"))
+    status = Column(String(50), default="pending")  # pending, processing, completed, failed
 
     user = relationship("User", back_populates="backtests")
     strategy = relationship("Strategy", back_populates="backtests")

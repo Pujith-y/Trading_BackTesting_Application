@@ -68,3 +68,10 @@ def get_charts_data_for_backtests(id : int, db : Session = Depends(get_db), curr
     candles = get_market_data(backtest.symbol, backtest.timeframe, backtest.period)
     trades = db.query(Trade).filter(Trade.backtest_id == backtest.id).all()
     return {"candles": candles, "trades": trades}
+
+@router.get("/backtest/{id}")
+def get_backtest(id : int, db : Session = Depends(get_db), curr_user : User = Depends(get_current_user)):
+    backtest = db.query(Backtest).filter(Backtest.id == id and Backtest.user_id == curr_user.id).first()
+    if not backtest:
+        return {"error": "Backtest not found"}
+    return backtest

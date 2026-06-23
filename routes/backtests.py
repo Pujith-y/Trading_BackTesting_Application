@@ -39,6 +39,8 @@ def create_a_backtest(
     curr_user : User = Depends(get_current_user)):
 
     strategy = db.query(Strategy).filter(Strategy.id == id and Strategy.user_id == curr_user.id).first()
+    if not strategy:
+        return {"error": "Strategy not found"}
     new_backtest = Backtest(
         market = body.market, 
         symbol = body.symbol, 

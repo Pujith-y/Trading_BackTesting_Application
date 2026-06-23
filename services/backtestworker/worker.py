@@ -37,7 +37,7 @@ def run_backtest(backtest_id : int):
             db.commit()
             db.refresh(new_trade)
 
-        list_of_trades.append(new_trade)
+            list_of_trades.append(new_trade)
 
         # SELL SIGNAL
         if ema_fast[i] < ema_slow[i] and (

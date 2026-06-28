@@ -1,5 +1,4 @@
-from http.client import HTTPException
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from database import get_db
 from models import User
@@ -36,10 +35,16 @@ def register(body: New_User, db: Session = Depends(get_db)):
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db : Session = Depends(get_db)):
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user:
-        return {"message" : "Invalid email or password"}
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email"
+        )
     
     if not verify_password(form_data.password, user.password_hash):
-        return {"message" : "Invalid email or password"}
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid password"
+        )
     
     token = create_a_token(data={"user_id" : user.id})
     return TokenResponse(access_token=token, token_type="bearer")

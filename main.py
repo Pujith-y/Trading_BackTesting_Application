@@ -1,8 +1,19 @@
 from fastapi import FastAPI
 from database import Base,engine
 from routes import auth,startegies,backtests,marketdata,trades,analytics,dashboard
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(root_path="/api/v1")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 Base.metadata.create_all(engine)
 

@@ -18,6 +18,8 @@ const LoginSignup = () => {
             "/auth/login",
             formData
         );
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('token_type', response.data.token_type);
         console.log(response);
     }
 

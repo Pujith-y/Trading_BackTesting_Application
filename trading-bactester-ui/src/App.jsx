@@ -1,4 +1,5 @@
 //import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import LoginSignup from "./components/loginSignup/loginSignup"
 
@@ -7,7 +8,9 @@ function App() {
 
   return (
     <>
-      <LoginSignup/>
+      <Routes>
+        <Route path='/' element={<LoginSignup/>} />
+      </Routes>
     </>
   )
 }

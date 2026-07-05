@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './loginSignup.css';
 import api from "../../api/api";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const LoginSignup = () => {
@@ -8,6 +10,15 @@ const LoginSignup = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    
+    const naviagte = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('access_token')
+        if(token != null){
+            naviagte("/dashboard")
+        }
+    })
 
     const login = async () => {
         const formData = new URLSearchParams();
@@ -20,12 +31,23 @@ const LoginSignup = () => {
         );
         localStorage.setItem('access_token', response.data.access_token);
         localStorage.setItem('token_type', response.data.token_type);
-        console.log(response);
+        naviagte("/dashboard")
     }
 
-    //const register = async () => {
-        
-    //}
+    const register = async () => {
+        try {
+            const response = await api.post("/auth/register", {
+                name,
+                email,
+                password,
+            });
+
+            console.log(response.data); 
+            setIsLogin(true);
+        } catch (error) {
+            console.error(error.response?.data || error.message);
+        }
+    }
 
     return (
         <>
@@ -63,7 +85,7 @@ const LoginSignup = () => {
                     ) : (
                         <>
                             <div className="submit">
-                                <button>
+                                <button onClick={register}>
                                     Sign Up
                                 </button>
                             </div>

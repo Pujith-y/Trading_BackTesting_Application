@@ -2,7 +2,7 @@
     background: #131722;
     border: 1px solid #2a2e39;
     border-radius: 12px;
-    padding: 22px;
+    padding: 24px;
     color: #d1d4dc;
     transition: .25s ease;
 }
@@ -50,9 +50,9 @@
 .strategy-description {
     color: #b2b5be;
     line-height: 1.6;
-    margin-bottom: 22px;
+    max-height: 100px;
+    overflow-y: auto;
 }
-
 /* INFO */
 
 .strategy-info {

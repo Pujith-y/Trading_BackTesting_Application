@@ -17,7 +17,9 @@ function StrategyCard({ strategy }) {
             </div>
 
             <p className="strategy-description">
-                {strategy.description}
+                {strategy.description.length > 40
+                    ? strategy.description.substring(0, 40) + "..."
+                    : strategy.description}
             </p>
 
             <div className="strategy-info">

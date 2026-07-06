@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../../api/api";
-import Card from "../common/Card.jsx"
-import './dashboard.css'
+import Card from "../common/Card.jsx";
+import "./dashboard.css";
 import Navbar from "../common/Navbar.jsx";
-
 
 const Dashboard = () => {
     const [dashboard, setDashboard] = useState({});
+
     useEffect(() => {
         async function loadDashboard() {
             const response = await api.get("/dashboard");
             setDashboard(response.data);
         }
-        
+
         loadDashboard();
-            
     }, []);
+
     const cards = [
         {
             title: "Strategies",
@@ -38,26 +38,41 @@ const Dashboard = () => {
             content: dashboard.failed_backtests
         },
         {
-            title : "Avarage Win Rate",
+            title: "Avarage Win Rate",
             content: dashboard.average_win_rate
         }
     ];
-    function renderCards(){
-        const arr = cards.map((card) => {
-            return (
-                <Card key={card.title} title={card.title} content={card.content} />
-            )
-        })
-        return arr;
+
+    function renderCards() {
+        return cards.map((card) => (
+            <Card
+                key={card.title}
+                title={card.title}
+                content={card.content}
+            />
+        ));
     }
+
     return (
-        <div>
-            <Navbar></Navbar>
-            <h1>Dashboard</h1>
-            <div className="cards">{renderCards()}</div>
-            
+        <div className="dashboard-page">
+            <Navbar />
+
+            <main className="dashboard-container">
+
+                <section className="dashboard-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Monitor your trading strategies and backtests.</p>
+                    </div>
+                </section>
+
+                <section className="cards">
+                    {renderCards()}
+                </section>
+
+            </main>
         </div>
-    )
-}
+    );
+};
 
 export default Dashboard;

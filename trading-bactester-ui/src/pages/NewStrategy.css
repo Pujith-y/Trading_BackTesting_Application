@@ -1,0 +1,172 @@
+/* Page */
+
+.strategy-page {
+    min-height: 100vh;
+    background: #131722;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    font-family: Inter, sans-serif;
+}
+
+/* Card */
+
+.strategy-from-card {
+    width: 700px;
+    background: #1e222d;
+    border: 1px solid #2a2e39;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Header */
+
+.card-header {
+    padding: 24px 30px;
+    border-bottom: 1px solid #2a2e39;
+}
+
+.card-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.card-header p {
+    color: #868993;
+    font-size: 15px;
+}
+
+/* Sections */
+
+.form-section {
+    padding: 28px 30px;
+    border-bottom: 1px solid #2a2e39;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section h3 {
+    color: #d1d4dc;
+    font-size: 18px;
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+/* Inputs */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    color: #b2b5be;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.input-group input,
+.input-group textarea {
+    background: #131722;
+    border: 1px solid #363a45;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 14px;
+    font-size: 15px;
+    transition: .2s;
+    outline: none;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #6a6d78;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #2962ff;
+    box-shadow: 0 0 0 2px rgba(41,98,255,.25);
+}
+
+/* Indicator Grid */
+
+.indicator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* Footer */
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 24px 30px;
+    background: #1b1f2a;
+}
+
+/* Buttons */
+
+.cancel-btn,
+.create-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.cancel-btn {
+    background: #2a2e39;
+    color: #d1d4dc;
+}
+
+.cancel-btn:hover {
+    background: #363a45;
+}
+
+.create-btn {
+    background: #2962ff;
+    color: white;
+}
+
+.create-btn:hover {
+    background: #1f56ee;
+    transform: translateY(-1px);
+}
+
+.create-btn:active {
+    transform: scale(.98);
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .strategy-card {
+        width: 100%;
+    }
+
+    .indicator-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .strategy-page {
+        padding: 20px;
+    }
+}

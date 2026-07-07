@@ -1,13 +1,17 @@
 import "./StrategyCard.css"
 
-function StrategyCard({ strategy }) {
+function StrategyCard({ strategy,
+    onEdit,
+    onDelete,
+    onRunBacktest
+ }) {
     return (
         <div className="strategy-card">
             <div className="card-header">
                 <div>
                     <h2>{strategy.name}</h2>
                     <span className="strategy-date">
-                        Created {strategy.created_at}
+                        Created {new Date(strategy.created_at).toLocaleDateString()}
                     </span>
                 </div>
 
@@ -18,7 +22,7 @@ function StrategyCard({ strategy }) {
 
             <p className="strategy-description">
                 {strategy.description.length > 40
-                    ? strategy.description.substring(0, 40) + "..."
+                    ? strategy.description.substring(0, 30) + "..."
                     : strategy.description}
             </p>
 
@@ -35,15 +39,15 @@ function StrategyCard({ strategy }) {
             </div>
 
             <div className="card-actions">
-                <button className="primary-btn">
+                <button className="primary-btn" onClick={() => onRunBacktest(strategy)}>
                     ▶ Run Backtest
                 </button>
 
-                <button className="secondary-btn">
+                <button className="secondary-btn" onClick={() => onEdit(strategy)}>
                     Edit
                 </button>
 
-                <button className="danger-btn">
+                <button className="danger-btn" onClick={() => onDelete(strategy.id)}>
                     Delete
                 </button>
             </div>

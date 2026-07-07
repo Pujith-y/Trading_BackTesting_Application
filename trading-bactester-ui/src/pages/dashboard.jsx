@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import api from "../../api/api";
-import Card from "../common/Card.jsx";
+import api from "../api/api.jsx";
+import Card from "../components/common/Card.jsx";
 import "./dashboard.css";
-import Navbar from "../common/Navbar.jsx";
+import Navbar from "../components/common/Navbar.jsx";
 
 const Dashboard = () => {
     const [dashboard, setDashboard] = useState({});

@@ -4,6 +4,7 @@ import StrategyCard from "../components/strategies/StrategyCard";
 import './strategies.css'
 import Navbar from "../components/common/Navbar";
 import StrategyModal from "../components/strategies/StrategyModal";
+import { useNavigate } from "react-router-dom";
 
 function Strategies() {
     const [strategies, setStrategies] = useState([]);
@@ -12,19 +13,30 @@ function Strategies() {
 
     const [selectedStrategy, setSelectedStrategy] = useState(null);
 
-        async function loadStrategies() {
-            try {
-                const response = await api.get("/strategies");
-                setStrategies(response.data);
-            } catch (err) {
-                console.error(err);
-                alert("Something went wrong.");
+    const navigate = useNavigate();
+
+    function runBacktest(strategy) {
+        navigate("/backtests/new", {
+            state: {
+                strategy
             }
+        });
+    }
+
+    async function loadStrategies() {
+        try {
+            const response = await api.get("/strategies");
+            setStrategies(response.data);
+        } catch (err) {
+            console.error(err);
+            alert("Something went wrong.");
         }
+    }
 
     useEffect(() => {   
         loadStrategies();
     }, []);
+
 
     function openCreateModal() {
         setSelectedStrategy(null);
@@ -75,9 +87,10 @@ function Strategies() {
         return strategies.map((strategy) => (
             <StrategyCard
                 key={strategy.id}
-                onEdit={openEditModal}
                 strategy={strategy}
+                onEdit={openEditModal}
                 onDelete={deleteStrategy}
+                onRunBacktest={runBacktest}
             />
         ));
     }

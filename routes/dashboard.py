@@ -19,7 +19,11 @@ def get_dashboard_data(db : Session = Depends(get_db), curr_user : User = Depend
     failed_backtests = len([b for b in backtests if b.status == "failed"])
     total_strategies = len(strategies)
     best_backtest_profit = max([b for b in backtests if b.status == "completed"], key=lambda x: sum([(t.exit_price - t.entry_price) for t in db.query(Trade).filter(Trade.backtest_id == x.id).all() if t.exit_price]), default=None)
-    average_win_rate = sum(a for a in analytics if a.exit_price and a.exit_price > a.entry_price) / len(analytics) * 100 if analytics else 0
+    average_win_rate = (
+        len([a for a in analytics if a.exit_price and a.exit_price > a.entry_price])
+        / len(analytics) * 100
+        if analytics else 0
+    )
     return {
         "total_backtests": total_backtests,
         "completed_backtests": completed_backtests,
@@ -27,5 +31,5 @@ def get_dashboard_data(db : Session = Depends(get_db), curr_user : User = Depend
         "failed_backtests": failed_backtests,
         "total_strategies": total_strategies,
         "best_backtest_profit": best_backtest_profit,
-        "average_win_rate": average_win_rate
+        "average_win_rate": f"{average_win_rate:.2f}"
     }

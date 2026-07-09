@@ -3,6 +3,7 @@ from models import Backtest,Strategy,Trade
 from services.queue.backtestqueue import backtest_queue
 from services.indicators.ema import calculate_ema
 from routes.marketdata import get_market_data
+from datetime import datetime
 
 def run_backtest(backtest_id : int):
     try:
@@ -30,16 +31,23 @@ def run_backtest(backtest_id : int):
                 i == start_index or ema_fast[i - 1] <= ema_slow[i - 1]
             ):
 
+                entry_time = datetime.fromisoformat(candles[i]["timestamp"])
+
+                # Remove timezone but keep the local clock time
+                entry_time = entry_time.replace(tzinfo=None)
+
                 new_trade = Trade(
                     entry_price=candles[i]["close"],
-                    entry_datetime=candles[i]["timestamp"],
+                    entry_datetime=entry_time,
                     entry_discription="Ema fast crosses above Ema slow",
                     backtest_id=backtest.id
                 )
-
+                print("Original:", candles[i]["timestamp"])
+                print("Parsed :", entry_time)
                 db.add(new_trade)
                 db.commit()
                 db.refresh(new_trade)
+                print("Stored :", new_trade.entry_datetime)
 
                 list_of_trades.append(new_trade)
 
@@ -50,7 +58,9 @@ def run_backtest(backtest_id : int):
                 open_trades = [t for t in list_of_trades if t.exit_price is None]
                 for trade in open_trades:
                     trade.exit_price = candles[i]["close"]
-                    trade.exit_datetime = candles[i]["timestamp"]
+                    exit_time = datetime.fromisoformat(candles[i]["timestamp"])
+                    exit_time = exit_time.replace(tzinfo=None)
+                    trade.exit_datetime = exit_time
                     trade.exit_discription = "Ema fast crosses below Ema slow"
 
                     db.commit()

@@ -1,0 +1,40 @@
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-x-auto .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Inter", -apple-system, sans-serif;
+  font-size: 13px;
+  color: #d1d4dc;
+}
+
+.overflow-x-auto .table thead th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #787b86;
+  background: #1e2230;
+  border-bottom: 1px solid #2a2e39;
+  position: sticky;
+  top: 0;
+}
+
+.overflow-x-auto .table tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #2a2e39;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+}
+
+.overflow-x-auto .table tbody tr:hover {
+  background: #1e2230;
+}
+
+.overflow-x-auto .table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.015);
+}

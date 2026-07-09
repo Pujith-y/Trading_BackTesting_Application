@@ -8,6 +8,7 @@ from services.queue.backtestqueue import backtest_queue
 from schemas import New_Backtest
 from services.backtestworker.worker import run_backtest
 from routes.marketdata import get_market_data
+from services.indicators.ema import calculate_ema
 
 router = APIRouter(tags=["Backtests"])
 
@@ -65,9 +66,12 @@ def get_charts_data_for_backtests(id : int, db : Session = Depends(get_db), curr
     
     if backtest.status != "completed":
         return {"error": f"Backtest is not completed yet. Current status: {backtest.status}"}
+    startegy = db.query(Strategy).filter(Strategy.id == backtest.strategy_id, Strategy.user_id == curr_user.id).first()
+    ema_fast = calculate_ema(backtest.symbol, backtest.timeframe, startegy.ema_fast, backtest.period)
+    ema_slow = calculate_ema(backtest.symbol, backtest.timeframe, startegy.ema_slow, backtest.period)
     candles = get_market_data(backtest.symbol, backtest.timeframe, backtest.period)
     trades = db.query(Trade).filter(Trade.backtest_id == backtest.id).all()
-    return {"candles": candles, "trades": trades}
+    return {"candles": candles, "trades": trades, "indicators": {"ema_fast": ema_fast, "ema_slow": ema_slow}}
 
 @router.get("/backtest/{id}")
 def get_backtest(id : int, db : Session = Depends(get_db), curr_user : User = Depends(get_current_user)):

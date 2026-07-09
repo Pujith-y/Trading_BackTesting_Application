@@ -50,7 +50,7 @@ const LoginSignup = () => {
     }
 
     return (
-        <>
+        <div className="login-signup-container">
             <div className="container">
                 <div className="header">
                     <h1 className='heading'>{isLogin ? "Login" : "Sign Up"}</h1>
@@ -97,7 +97,7 @@ const LoginSignup = () => {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     ) 
 }
 

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { createChart, CandlestickSeries } from "lightweight-charts";
+import { createChart, CandlestickSeries, LineSeries, createSeriesMarkers } from "lightweight-charts";
 
 
-function CandleChart({ candles }) {
+function CandleChart({ candles = [], trades = [],     indicators = {ema_fast: [],ema_slow: [],}, }) {
 
     const chartContainerRef = useRef(null);
 
@@ -50,6 +50,65 @@ function CandleChart({ candles }) {
             },
         });
         const candleSeries = chart.addSeries(CandlestickSeries);
+        const fastEmaSeries = chart.addSeries(LineSeries, {
+            color: "#2962FF",
+            lineWidth: 2,
+            title: "EMA Fast",
+        });
+
+        const slowEmaSeries = chart.addSeries(LineSeries, {
+            color: "#FF6D00",
+            lineWidth: 2,
+            title: "EMA Slow",
+        });
+        const fastEMAData = candles
+            .map((candle, index) => ({
+                time: Math.floor(
+                    new Date(candle.timestamp).getTime() / 1000
+                ),
+                value: indicators.ema_fast[index]
+            }))
+            .filter(point => point.value !== null);
+
+        const slowEMAData = candles
+            .map((candle, index) => ({
+                time: Math.floor(
+                    new Date(candle.timestamp).getTime() / 1000
+                ),
+                value: indicators.ema_slow[index]
+            }))
+            .filter(point => point.value !== null);
+        
+        fastEmaSeries.setData(fastEMAData);
+        slowEmaSeries.setData(slowEMAData);
+        const markers = [];
+        trades.forEach((trade) => {
+
+            markers.push({
+                time: Math.floor(
+                    new Date(trade.entry_datetime).getTime() / 1000
+                ),
+                position: "belowBar",
+                color: "#22c55e",
+                shape: "arrowUp",
+                text: "BUY",
+            });
+
+            if (trade.exit_datetime) {
+
+                markers.push({
+                    time: Math.floor(
+                        new Date(trade.exit_datetime).getTime() / 1000
+                    ),
+                    position: "aboveBar",
+                    color: "#ef4444",
+                    shape: "arrowDown",
+                    text: "SELL",
+                });
+
+            }
+
+        });
         const chartData = candles.map(candle => ({
             time: Math.floor(new Date(candle.timestamp).getTime() / 1000),
             open: candle.open,
@@ -58,6 +117,7 @@ function CandleChart({ candles }) {
             close: candle.close
         }));
         candleSeries.setData(chartData);
+        createSeriesMarkers(candleSeries, markers);
         chart.timeScale().fitContent();
 
         return () => {

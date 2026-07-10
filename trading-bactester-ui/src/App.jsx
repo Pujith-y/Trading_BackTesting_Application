@@ -7,6 +7,7 @@ import ProtectedRoute from './components/common/protectedRoute'
 import Strategies from './pages/strategies'
 import BacktestRunner from './pages/BacktestRunner'
 import BacktestResult from './pages/BacktestResult'
+import Backtests from './pages/Backtests'
 
 
 
@@ -39,6 +40,14 @@ function App() {
             </ProtectedRoute>
             }
         />
+        <Route
+        path="/backtests"
+        element={
+            <ProtectedRoute>
+                <Backtests />
+            </ProtectedRoute>
+        }
+    />
       </Routes>
     </>
   )

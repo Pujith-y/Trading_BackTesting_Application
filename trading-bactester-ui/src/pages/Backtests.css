@@ -1,0 +1,38 @@
+.backtests-container {
+  --bt-bg: #131722;
+  --bt-surface: #1a1e2a;
+  --bt-surface-raised: #1e2230;
+  --bt-border: #2a2e39;
+  --bt-text: #d1d4dc;
+  --bt-text-dim: #787b86;
+  --bt-blue: #2962ff;
+  --bt-green: #22c55e;
+  --bt-red: #ef4444;
+  --bt-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --bt-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  min-height: 100vh;
+  background: var(--bt-bg);
+  color: var(--bt-text);
+  font-family: var(--bt-sans);
+  padding: 28px 32px 60px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  align-content: start;
+}
+
+.backtests-container * {
+  box-sizing: border-box;
+}
+
+.backtests-container > h1 {
+  grid-column: 1 / -1;
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}

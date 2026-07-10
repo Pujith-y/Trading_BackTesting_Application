@@ -23,6 +23,8 @@ function BacktestResult(){
 
     const [analytics, setAnalytics] = useState(null);
 
+    const [strategy, setStrategy] = useState(null);
+
     async function loadBacktest() {
         try {
             const response = await api.get(`/backtest/${id}`);
@@ -35,13 +37,15 @@ function BacktestResult(){
     }
     async function loadChartData() {
         try {
-            const [chartResponse, analyticsResponse] = await Promise.all([
+            const [chartResponse, analyticsResponse, strategyResponse] = await Promise.all([
                 api.get(`/backtest/${id}/charts-data`),
-                api.get(`/analytics/${id}`)
+                api.get(`/analytics/${id}`),
+                api.get(`/strategy/${backtest.strategy_id}`)
             ]);
 
             setChartData(chartResponse.data);
             setAnalytics(analyticsResponse.data);
+            setStrategy(strategyResponse.data);
         } catch (err) {
             console.error(err);
         }
@@ -136,7 +140,29 @@ function BacktestResult(){
                                 <span>{backtest.status}</span>
                             </div>
 
+                            {strategy == null ? <></> : (
+                            <>
+                                <h4>Strategy</h4>
+                                <div className="bt-setting-row">
+                                    <label>Startegy</label>
+                                    <span>{strategy.name}</span>
+                                </div>
+
+                                <div className="bt-setting-row">
+                                    <label>Ema Fast</label>
+                                    <span>{strategy.ema_fast}</span>
+                                </div>
+                                
+                                <div className="bt-setting-row">
+                                    <label>Ema Slow</label>
+                                    <span>{strategy.ema_slow}</span>
+                                </div>
+                            </>
+                        )}
+
                         </aside>
+
+                        
 
                     </div>
 

@@ -34,6 +34,21 @@ def get_all_strategies(curr_user : User = Depends(get_current_user), db : Sessio
         strategies = [strategy for strategy in strategies if name.lower() in strategy.name.lower()]
     return strategies
 
+@router.get("/strategy/{id}")
+def get_a_strategy(id : int, curr_user : User = Depends(get_current_user), db : Session = Depends(get_db)):
+    strategy = (db.query(Strategy)
+                    .filter(
+                        Strategy.id == id,
+                        Strategy.user_id == curr_user.id
+                    ).first()
+                )
+    if not strategy:
+        raise HTTPException(
+            status_code=404,
+            detail="Strategy not found"
+        )
+    return strategy
+
 @router.put("/strategy/{id}")
 def update_a_strategy(id : int, body : Change_Strategy, curr_user : User = Depends(get_current_user), db : Session = Depends(get_db)):
 

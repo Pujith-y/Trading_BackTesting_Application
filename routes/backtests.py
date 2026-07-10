@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from database import get_db
-from models import Backtest, Trade,User,Strategy
+from models import Analytics, Backtest, Trade,User,Strategy
 from services.security.token_creation import get_current_user
 from services.queue.backtestqueue import backtest_queue
 from schemas import New_Backtest
@@ -57,6 +57,37 @@ def create_a_backtest(
     db.refresh(new_backtest)
     backtest_queue.enqueue(run_backtest, new_backtest.id)
     return new_backtest
+
+@router.get("/backtest/history")
+def get_backtest_history(db : Session = Depends(get_db), curr_user : User = Depends(get_current_user)):
+    backtests = (
+        db.query(
+            Backtest,
+            Strategy.name.label("strategy_name"),
+            Analytics.net_profit.label("net_profit")
+        )
+        .join(Strategy, Strategy.id == Backtest.strategy_id)
+        .outerjoin(Analytics, Analytics.backtest_id == Backtest.id)
+        .filter(Backtest.user_id == curr_user.id)
+    ).order_by(Backtest.created_at.desc()).all()
+
+    if not backtests:
+        return {"error": "No backtests found for the user"}
+
+    result = []
+
+    for backtest, strategy_name, net_profit in backtests:
+        result.append({
+            "id": backtest.id,
+            "symbol": backtest.symbol,
+            "market": backtest.market,
+            "timeframe": backtest.timeframe,
+            "status": backtest.status,
+            "strategy_name": strategy_name,
+            "net_profit": net_profit
+        })
+
+    return result                                                     
 
 @router.get("/backtest/{id}/charts-data")
 def get_charts_data_for_backtests(id : int, db : Session = Depends(get_db), curr_user : User = Depends(get_current_user)):

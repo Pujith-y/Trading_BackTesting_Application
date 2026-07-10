@@ -1,0 +1,120 @@
+.backtest_card {
+  --card-bg: #1a1e2a;
+  --card-border: #2a2e39;
+  --card-text: #d1d4dc;
+  --card-text-dim: #787b86;
+  --card-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.backtest_card:hover {
+  border-color: #3a3f4d;
+  transform: translateY(-2px);
+}
+
+.backtest_card h1 {
+  margin: 0 0 2px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+/* Symbol — first <p>: the headline data point */
+.backtest_card p:nth-of-type(1) {
+  margin: 0;
+  font-family: var(--card-mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Timeframe — second <p>: small pill */
+.backtest_card p:nth-of-type(2) {
+  margin: 2px 0 8px;
+  display: inline-block;
+  width: fit-content;
+  font-family: var(--card-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--card-text-dim);
+  background: #1e2230;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* Status — third <p>: colored badge */
+.backtest_card p:nth-of-type(3) {
+  margin: 0 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: var(--card-text-dim);
+  background: rgba(120, 123, 134, 0.12);
+}
+
+.backtest_card p:nth-of-type(3)::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Strategy name — fourth <p>: quiet caption */
+.backtest_card p:nth-of-type(4) {
+  margin: 2px 0 10px;
+  font-size: 12.5px;
+  color: var(--card-text-dim);
+}
+
+/* Net profit — fifth <p>: emphasized figure */
+.backtest_card p:nth-of-type(5) {
+  margin: 0 0 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--card-border);
+  font-size: 13px;
+  color: var(--card-text-dim);
+  font-family: var(--card-mono);
+}
+
+.backtest_card button {
+  margin-top: auto;
+  padding: 10px 14px;
+  background: #2962ff;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.backtest_card button:hover:not(:disabled) {
+  background: #1e4fe0;
+}
+
+.backtest_card button:disabled {
+  background: #2a2e39;
+  color: var(--card-text-dim);
+  cursor: not-allowed;
+}

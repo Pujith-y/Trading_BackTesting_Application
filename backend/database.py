@@ -1,11 +1,23 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "mysql+pymysql://root:Test%401234@127.0.0.1/trading_backtesting_db"
+#DATABASE_URL = "mysql+pymysql://root:Test%401234@127.0.0.1/trading_backtesting_db"
+from dotenv import load_dotenv
+import os
 
-engine = create_engine(DATABASE_URL)
+load_dotenv()
 
-SessionLocal = sessionmaker(bind=engine)
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
 
 Base = declarative_base()
 

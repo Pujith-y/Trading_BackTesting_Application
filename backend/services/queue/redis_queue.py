@@ -1,3 +1,7 @@
+import os
+from dotenv import load_dotenv
 from redis import Redis
 
-redis_conn = Redis(host="localhost",port = 6379,db=0)
+load_dotenv()
+
+redis_conn = Redis.from_url(os.getenv("REDIS_URL"))

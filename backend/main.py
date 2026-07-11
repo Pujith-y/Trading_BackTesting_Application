@@ -9,7 +9,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://trading-backtesting-application.vercel.app",
+        "https://trading-back-testing-application.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

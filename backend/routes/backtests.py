@@ -55,7 +55,12 @@ def create_a_backtest(
     db.add(new_backtest)
     db.commit()
     db.refresh(new_backtest)
-    backtest_queue.enqueue(run_backtest, new_backtest.id)
+    try:
+        backtest_queue.enqueue(run_backtest, new_backtest.id)
+    except Exception as e:
+        print("QUEUE ERROR:", e)
+        raise
+
     return new_backtest
 
 @router.get("/backtest/history")

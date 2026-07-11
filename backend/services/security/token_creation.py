@@ -1,3 +1,5 @@
+import os
+
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
@@ -6,8 +8,8 @@ from database import get_db
 from sqlalchemy.orm import Session
 from models import User
 
-SECRET_KEY = "MKSJNOSEEI794Y79Y48UHE9WEY8ue8V"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 

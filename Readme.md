@@ -58,7 +58,11 @@ Users register, define an EMA crossover strategy, and queue a backtest against h
 
 | Backtest Results |
 |---|
-| ![Results](screenshots/BacktestResults1.png) | ![Results2](screenshots/BacktestResults2.png)
+| ![Results](screenshots/BacktestResults1.png) | 
+
+| Backtest Results |
+|---|
+| ![Results](screenshots/BacktestResults2.png) | 
 
 ---
 

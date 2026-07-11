@@ -50,15 +50,15 @@ Users register, define an EMA crossover strategy, and queue a backtest against h
 
 | Login | Dashboard |
 |---|---|
-| ![Login](screenshots/login.png) | ![Dashboard](screenshots/dashboard.png) |
+| ![Login](screenshots/loginpage.png) | ![Dashboard](screenshots/Dashboard.png) |
 
 | Strategy List | Backtest Setup |
 |---|---|
-| ![Strategies](screenshots/strategies.png) | ![Backtest Setup](screenshots/backtest_setup.png) |
+| ![Strategies](screenshots/Strategies.png) | ![Backtest Setup](screenshots/NewBacktests.png) |
 
 | Backtest Results |
 |---|
-| ![Results](screenshots/backtest_results.png) |
+| ![Results](screenshots/BacktestResults1.png) |
 
 ---
 

@@ -219,7 +219,7 @@ trading-backtester-ui/
 
 ## 🌐 Live Demo
 
-- **Frontend:** [your-vercel-app.vercel.app](https://trading-back-testing-application.vercel.app)
+- **Frontend:** [trading-back-testing-application.vercel.app](https://trading-back-testing-application.vercel.app)
 - **API Docs:** [trading-backtester-rz8p.onrender.com/docs](https://trading-backtester-rz8p.onrender.com/docs)
 
 ---
